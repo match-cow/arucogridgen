@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArUco Grid Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="controls">
+            <h1>ArUco Grid Generator</h1>
+            <form id="grid-form">
+                <div class="section">
+                    <h2>Page and Layout</h2>
+                    <label>Paper Size:
+                        <select name="paper_size">
+                            <option value="A4">A4</option>
+                            <option value="A3">A3</option>
+                        </select>
+                    </label>
+                    <label>Orientation:
+                        <select name="orientation">
+                            <option value="portrait">Portrait</option>
+                            <option value="landscape">Landscape</option>
+                        </select>
+                    </label>
+                    <label>ArUco Dictionary:
+                        <select name="dictionary">
+                            <option value="DICT_6X6_250">DICT_6X6_250</option>
+                            <option value="DICT_4X4_50">DICT_4X4_50</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="section">
+                    <h2>Grid Dimensions</h2>
+                    <label>Marker Columns: <input type="number" name="cols" value="5" min="1"></label>
+                    <label>Marker Rows: <input type="number" name="rows" value="7" min="1"></label>
+                    <label>Marker Size (mm): <input type="number" name="marker_size_mm" value="30" min="1"></label>
+                    <label>Marker Separation (mm): <input type="number" name="separation_mm" value="8" min="1"></label>
+                </div>
+                <div class="section">
+                    <h2>Output Toggles</h2>
+                    <label><input type="checkbox" name="show_ids" checked> Show Marker IDs</label>
+                    <label><input type="checkbox" name="show_scale" checked> Show Scale</label>
+                    <label><input type="checkbox" name="show_params" checked> Show Parameters</label>
+                </div>
+                <div class="section">
+                    <h2>Coordinate System</h2>
+                    <label>Translation X (mm): <input type="number" name="base_translation_x" value="0" step="0.1"></label>
+                    <label>Translation Y (mm): <input type="number" name="base_translation_y" value="0" step="0.1"></label>
+                    <label>Translation Z (mm): <input type="number" name="base_translation_z" value="0" step="0.1"></label>
+                    <label>Roll (deg): <input type="number" name="base_rotation_roll" value="0" step="0.1"></label>
+                    <label>Pitch (deg): <input type="number" name="base_rotation_pitch" value="0" step="0.1"></label>
+                    <label>Yaw (deg): <input type="number" name="base_rotation_yaw" value="0" step="0.1"></label>
+                </div>
+                <button type="button" id="generate-btn">Generate PDF</button>
+            </form>
+        </div>
+        <div class="preview">
+            <img id="preview-img" src="" alt="Grid Preview">
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
