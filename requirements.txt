@@ -4,3 +4,4 @@ numpy
 reportlab
 scipy
 Pillow
+gunicorn

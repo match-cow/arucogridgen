@@ -4,10 +4,22 @@ document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('grid-form');
     const previewImg = document.getElementById('preview-img');
     const generateBtn = document.getElementById('generate-btn');
+    const collapsibleToggle = document.querySelector('.collapsible-toggle');
+    const collapsibleBody = document.querySelector('.collapsible-body');
 
     // Function to collect form data
     function getFormData() {
         const data = new FormData(form);
+        const baseTranslation = [
+            parseFloat(data.get('base_translation_x')),
+            parseFloat(data.get('base_translation_y')),
+            parseFloat(data.get('base_translation_z'))
+        ];
+        const baseRotation = [
+            parseFloat(data.get('base_rotation_roll')),
+            parseFloat(data.get('base_rotation_pitch')),
+            parseFloat(data.get('base_rotation_yaw'))
+        ];
         return {
             paper_size: data.get('paper_size'),
             orientation: data.get('orientation'),
@@ -19,16 +31,9 @@ document.addEventListener('DOMContentLoaded', function() {
             show_ids: data.has('show_ids'),
             show_scale: data.has('show_scale'),
             show_params: data.has('show_params'),
-            base_translation: [
-                parseFloat(data.get('base_translation_x')),
-                parseFloat(data.get('base_translation_y')),
-                parseFloat(data.get('base_translation_z'))
-            ],
-            base_rotation: [
-                parseFloat(data.get('base_rotation_roll')),
-                parseFloat(data.get('base_rotation_pitch')),
-                parseFloat(data.get('base_rotation_yaw'))
-            ]
+            show_coordsys: data.has('show_coordsys'),
+            base_translation: baseTranslation,
+            base_rotation: baseRotation
         };
     }
 
@@ -88,6 +93,11 @@ document.addEventListener('DOMContentLoaded', function() {
     form.addEventListener('input', updatePreview);
     form.addEventListener('change', updatePreview);
     generateBtn.addEventListener('click', generatePDF);
+
+    collapsibleToggle.addEventListener('click', function() {
+        console.log('Coordinate System section collapsed/expanded');
+        collapsibleBody.classList.toggle('collapsed');
+    });
 
     // Initial preview
     updatePreview();

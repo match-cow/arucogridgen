@@ -22,6 +22,7 @@ def generate_aruco_grid(data, low_res=False, draw_overlays=True):
     orientation = data.get("orientation", "portrait")
     show_ids = data.get("show_ids", True)
     show_scale = data.get("show_scale", True)
+    show_coordsys = data.get("show_coordsys", False)
 
     # Get dictionary
     aruco_dict = cv2.aruco.getPredefinedDictionary(getattr(cv2.aruco, dictionary_name))
@@ -197,6 +198,52 @@ def generate_aruco_grid(data, low_res=False, draw_overlays=True):
                 font=font,
             )
 
+    # Draw coordinate system if enabled
+    if show_coordsys:
+        draw = ImageDraw.Draw(pil_img)
+        cx = img_width_px // 2
+        cy = img_height_px // 2
+        axis_length = 50  # pixels
+        font_size = 12
+        try:
+            font = ImageFont.truetype("arial.ttf", font_size)
+        except:
+            font = ImageFont.load_default()
+        # X axis (red, horizontal)
+        draw.line(
+            (cx - axis_length, cy, cx + axis_length, cy), fill=(255, 0, 0), width=2
+        )
+        # Arrow head for X
+        draw.line(
+            (cx + axis_length, cy, cx + axis_length - 5, cy - 3),
+            fill=(255, 0, 0),
+            width=2,
+        )
+        draw.line(
+            (cx + axis_length, cy, cx + axis_length - 5, cy + 3),
+            fill=(255, 0, 0),
+            width=2,
+        )
+        # Label X
+        draw.text((cx + axis_length + 5, cy - 10), "X", fill=(255, 0, 0), font=font)
+        # Y axis (green, vertical)
+        draw.line(
+            (cx, cy - axis_length, cx, cy + axis_length), fill=(0, 255, 0), width=2
+        )
+        # Arrow head for Y
+        draw.line(
+            (cx, cy - axis_length, cx - 3, cy - axis_length + 5),
+            fill=(0, 255, 0),
+            width=2,
+        )
+        draw.line(
+            (cx, cy - axis_length, cx + 3, cy - axis_length + 5),
+            fill=(0, 255, 0),
+            width=2,
+        )
+        # Label Y
+        draw.text((cx + 5, cy - axis_length - 15), "Y", fill=(0, 255, 0), font=font)
+
     # Draw solid grey border for preview
     if low_res:
         draw = ImageDraw.Draw(pil_img)
@@ -279,6 +326,7 @@ def generate_pdf(data):
     # Extract parameters
     show_ids = data.get("show_ids", True)
     show_scale = data.get("show_scale", True)
+    show_coordsys = data.get("show_coordsys", False)
     show_params = data.get("show_params", True)
 
     # Generate high-res image

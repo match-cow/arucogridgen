@@ -43,6 +43,27 @@ body {
     font-size: 1.2em;
 }
 
+.collapsible-toggle {
+    cursor: pointer;
+    user-select: none;
+}
+
+.collapsible-toggle::before {
+    content: '▼ ';
+}
+
+.collapsible-toggle.collapsed::before {
+    content: '▶ ';
+}
+
+.collapsible-body {
+    margin-top: 10px;
+}
+
+.collapsible-body.collapsed {
+    display: none;
+}
+
 label {
     display: block;
     margin-bottom: 10px;
