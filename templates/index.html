@@ -4,9 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ArUco Grid Generator</title>
+    <link rel="icon" href="{{ url_for('static', filename='matchfavicon.png') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
+    <a href="https://www.match.uni-hannover.de" target="_blank">
+        <img src="{{ url_for('static', filename='match.png') }}" alt="MATCH Logo" style="position: absolute; top: 5px; left: 20px; width: 100px; height: auto; z-index: 10;">
+    </a>
     <div class="container">
         <div class="controls">
             <h1>ArUco Grid Generator</h1>
