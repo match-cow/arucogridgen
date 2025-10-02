@@ -96,7 +96,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     collapsibleToggle.addEventListener('click', function() {
         console.log('Coordinate System section collapsed/expanded');
-        collapsibleBody.classList.toggle('collapsed');
+        collapsibleBody.classList.toggle('hidden');
+        const arrow = document.getElementById('arrow');
+        arrow.textContent = collapsibleBody.classList.contains('hidden') ? '▶' : '▼';
     });
 
     // Initial preview

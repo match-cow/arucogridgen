@@ -13,11 +13,11 @@ from scipy.spatial.transform import Rotation as R_scipy
 
 def generate_aruco_grid(data, low_res=False, draw_overlays=True):
     # Extract parameters
-    dictionary_name = data.get("dictionary", "DICT_6X6_250")
+    dictionary_name = data.get("dictionary", "DICT_5X5_250")
     rows = data.get("rows", 5)
     cols = data.get("cols", 7)
     marker_size_mm = data.get("marker_size_mm", 30)
-    separation_mm = data.get("separation_mm", 8)
+    separation_mm = data.get("separation_mm", 10)
     paper_size = data.get("paper_size", "A4")
     orientation = data.get("orientation", "portrait")
     show_ids = data.get("show_ids", True)
